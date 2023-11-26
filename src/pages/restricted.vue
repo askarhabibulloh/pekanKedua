@@ -1,5 +1,12 @@
+<script setup lang="ts">
+import { useAuthStore } from "@/stores/auth";
+import { useRouter } from "vue-router";
+
+const auth = useAuthStore();
+</script>
+
 <template>
-  <div>
+  <div v-if="auth.isLoggedIn()">
     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti quaerat
     eius consequatur maiores, magni quia labore nesciunt sunt eaque tenetur.
     Quia, soluta maiores! Eum, voluptatibus. Impedit ipsum maxime, doloremque
@@ -11,4 +18,5 @@
     iure quos fugiat suscipit quidem vero totam accusantium eaque consequuntur
     dignissimos quod autem. Aut excepturi ad maxime eum cumque.
   </div>
+  <div v-else>Please Login First</div>
 </template>
