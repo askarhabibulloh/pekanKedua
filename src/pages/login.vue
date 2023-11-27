@@ -12,22 +12,35 @@ const password = ref("");
 const router = useRouter();
 
 const onLogin = async () => {
-  // Send a POST request
-  console.log("Start");
-  const response = await axios({
-    method: "post",
-    url: "http://localhost:3000/login",
-    data: {
+  try {
+    const response = await axios.post("http://localhost:3000/login", {
       username: username.value,
       password: password.value,
-    },
-  });
+    });
 
-  console.log(response);
+    console.log(response.data);
 
-  // auth.login(username.value);
-  // router.push("/");
+    // Menggunakan operator logika untuk menentukan tindakan
+    response.data.status === "Sukses"
+      ? handleSuccessfulLogin()
+      : handleLoginError();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    handleLoginError();
+  }
 };
+
+const handleSuccessfulLogin = () => {
+  auth.login(username.value);
+  router.push("/");
+};
+
+const handleLoginError = () => {
+  alert("Login gagal");
+};
+
+// auth.login(username.value);
+// router.push("/");
 </script>
 <template>
   <div>
